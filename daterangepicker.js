@@ -60,7 +60,7 @@
             this.drops = 'up';
 
         this.buttonClasses = 'btn btn-sm';
-        this.applyClass = 'btn-success';
+        this.applyClass = 'btn-primary';
         this.cancelClass = 'btn-default';
 
         this.locale = {
@@ -86,6 +86,33 @@
         //custom options from user
         if (typeof options !== 'object' || options === null)
             options = {};
+        // always with ranges
+        options.ranges = {
+              "今天": [
+                  moment(),
+                  moment()
+              ],
+              "昨天": [
+                  moment().subtract(1, 'days'),
+                  moment().subtract(1, 'days')
+              ],
+              "最近7天": [
+                  moment().subtract(7, 'days'),
+                  moment()
+              ],
+              "最近30天": [
+                  moment().subtract(30, 'days'),
+                  moment()
+              ],
+              "本周": [
+                  moment().startOf('weeks'),
+                  moment()
+              ],
+              "本月": [
+                  moment().startOf('months'),
+                  moment()
+              ]
+        };
 
         //allow setting options with data attributes
         //data-api options will be overwritten with custom javascript options
@@ -389,9 +416,9 @@
         this.container.addClass('opens' + this.opens);
 
         //swap the position of the predefined ranges if opens right
-        if (typeof options.ranges !== 'undefined' && this.opens == 'right') {
-            this.container.find('.ranges').prependTo( this.container.find('.calendar.left').parent() );
-        }
+        // if (typeof options.ranges !== 'undefined' && this.opens == 'right') {
+        //     this.container.find('.ranges').prependTo( this.container.find('.calendar.left').parent() );
+        // }
 
         //apply CSS classes and labels to buttons
         this.container.find('.applyBtn, .cancelBtn').addClass(this.buttonClasses);
